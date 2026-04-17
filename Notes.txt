@@ -1,0 +1,1453 @@
+============================== Lecture No.1 ==============================
+
+--------------------------- Introduction ---------------------------
+Programming Paradigm: A fundamental Style or Philosophy of writing and structuring and reasoning about code.
+   │
+   ├── Imperative (HOW to do things)
+   │   ├── Procedural
+   │   └── Object-Oriented
+   │
+   └── Declarative (WHAT result you want)
+       ├── Functional
+       ├── Logic
+       └── Dataflow / Reactive
+
+Imperative Paradigm: (How to do things)
+0. Basic Imperative Paradigm (The Origin): You describe step-by-step instructions that change program state.
+   The program executes statements sequentially.
+Problems:
+  1. State Explosion: Large programs → too many variables → unpredictable state.
+  2. Spaghetti Code: Control jumps everywhere (especially in early BASIC/C).
+  3. Hard Maintenance: Changing one part breaks others.
+
+
+1. Procedural Programming Paradigm: Functions/Procedures, Modularity, Scope Control
+   Instead of writing everything in one file, we organize code into reusable procedures.
+Problems:
+  Data and behavior are separate: Data structures are separate from functions that operate on them.
+    This causes:
+    Tight coupling
+    Difficult scaling
+    Large codebases become chaotic
+
+
+2. OOP Paradigm:
+Core Idea
+Model real-world entities as objects.
+Bundle Inside an object:
+   Data (state)
+   Behavior (methods)
+Classifications (Properties/Behaviors[Actions]) => Objects (Values of Properties/Do Actions)
+Problems:
+  1. Inheritance Hell: Deep class hierarchies become fragile.
+  2. Mutable State Everywhere: Hard to reason about bugs.
+  3. Side Effects: Objects modifying shared state → race conditions.
+  4. Tight Coupling: This caused industry to rethink architecture.
+
+
+3. Functional Programming Paradigm:
+Core Philosophy: Computation = evaluation of mathematical functions.
+Core Concepts
+  Pure functions: A function where the same input always produces the same output, and it has no side effects
+  Immutability
+  First-class functions
+  Higher-order functions: Functions that operate on other functions.
+Problems:
+  1. Steep Learning Curve: Math-heavy concepts.
+  2. Performance Overhead: Immutability can increase memory usage.
+  3. Hard Debugging in Lazy Systems: This led to hybrid approaches.
+
+
+4. Hybrid Approach Paradigm
+
+Declarative Paradigm: (What result you want)
+0. Basic Declarative Paradigm
+Core Idea: You describe WHAT you want, not HOW to compute it.
+Example: SQL => SELECT * FROM users WHERE age > 18;
+
+1. Logic Programming: Define Facts, and rules => System derive answers
+Example: You define relationships => The engine infers.
+  parent(ali, lamiaa).
+  parent(omar, salma).
+  grandparent(X, Y) :- parent(X, Z), parent(Z, Y).
+
+Event-Driven Programming: Execution is driven by events.
+Example in JavaScript:
+  button.addEventListener("click", () => {
+    console.log("Clicked");
+  });
+
+Reactive Programming: When data changes → UI updates.
+Used in: Angular(Signals) - React - Vue.js - RxJS
+
+Data-Oriented Programming: Focus on Memory layout - CPU cache efficiency - Performance optimization
+Used in: Games Engines - High-performance systems
+
+Multi-Paradigms:
+  Python => Procedural + OOP + Functional
+  JavaScript => Imperative + Functional + Event-Driven
+  Scala => OOP + Functional
+  Rust => Systems + Functional
+
+
+
+--------------------------- React.js Depend On ES6+ Heavily ---------------------------
+
+1. Modules:
+Before ES6: Node.js (2009) Introduced CommonJS
+ES6 (2015) Introduced :ESM
+
+2. Strict Mode
+// 'use strict';
+
+
+3. Truthy and Falsy Values
+// Falsy Values => Treated as false
+
+// 1. false => Boolean
+console.log(Boolean(false));
+
+// 2. 0 => number
+console.log(Boolean(0));
+
+// 3. -0 => number
+console.log(Boolean(-0));
+
+// 4. 0n => bigint
+console.log(Boolean(0n));
+
+// 5. "" => empty string
+console.log(Boolean(''));
+
+// 6. null =>
+console.log(Boolean(null));
+
+// 7. undefined =>
+console.log(Boolean(undefined));
+
+// 8. NaN => number
+console.log(Boolean(NaN));
+
+// Truthy Values
+
+// true
+console.log(Boolean(true));
+
+// 23
+console.log(Boolean(23));
+
+// -12
+console.log(Boolean(-12));
+
+// 3.14
+console.log(Boolean(3.14));
+
+// " "
+console.log(Boolean(' '));
+
+// "0"
+console.log(Boolean('0'));
+
+// "false"
+console.log(Boolean('false'));
+
+// []
+console.log(Boolean([]));
+
+// {}
+console.log(Boolean({}));
+
+// function x(){}
+console.log(Boolean(function x() {}));
+
+// Symbol => Empty Description
+console.log(Boolean(Symbol()));
+
+// Infinity
+console.log(Boolean(Infinity));
+
+
+
+4. Ternary Operator
+Instead of:
+// if (age > 60) {
+// 	console.log('Special Chair');
+// } else {
+// 	console.log('Child Chair');
+// }
+
+age > 60 ? console.log('Special Chair') : console.log('Child Chair');
+
+// Assignment based on condition
+example = age > 60 ? 'Boomer' : 'Adult';
+
+// Nested Ternary Operator
+example = age > 18 ? (age > 60 ? 'Boomer' : 'Adult') : 'Minor';
+
+
+4. Functions => First-Class Citizen (Same as Variable)
+
+5. Arrow Function (Nameless Function / Anonymous FunctionNameless Function / Anonymous Function) => 2015 - ES6
+
+Form 1:
+// function name(x, y, z) {
+// 	return '......';
+// }
+
+const name = (x, y, z) => '......'
+
+Form 2:
+// function name(x, y, z) {
+// 	console.log('.......');
+// 	console.log('.......');
+// 	return '......';
+// }
+
+(x, y, z) => {
+	console.log('.......');
+	console.log('.......');
+	return '......';
+}
+
+// Form 3
+// function name(x) {
+// 	return '......';
+// }
+
+x => '......'
+
+Example of Multiple Parameters:
+const arrowFunction = (x, y, z) => z + y + z;
+
+console.log(arrowFunction(1, 2, 3));
+
+6. Rest Parameter ...
+// function addMultiple(x, y, z) {
+// 	// let sum = 0;
+// 	return x + y + z;
+// }
+
+// console.log(addMultiple(1, 2, 3));
+
+function addMultiple(...args) {
+	console.log(args);
+	let sum = 0;
+	for (let arg of args) {
+		sum += arg;
+	}
+	console.log(sum);
+}
+
+addMultiple(9, 15, 20, 10, 6, 7, 2);
+
+
+7. Higher-Order Functions
+const arr = [1, 15, 20, 100, 3, 4];
+console.log(arr.map((a) => a * 5));
+
+
+8. Spread Operator ...
+const arr4 = [...arr3]; // insert elements from array to another
+console.log(arr4);
+
+const oldData = [5, 6, 7];
+const newData = [...oldData, 8, 9, 10];
+console.log(newData);
+
+
+--------------------------- History of Web ---------------------------
+
+Module: single file or collection of files that encapsulate related code.
+Library: Pre-written code perform specific tasks that we can reuse => you control it
+Package: Packages are a collection of related modules or Libraries
+Framework: collection of packages, libraries, and modules, with Complete Structure or Skeleton for developing application => it control you
+
+Opinionated => Obligatory/Mandatory => Libraries are chosen before
+Unopinionated => Freedom => Libraries are chosen by me
+
+Frontend => Angular - Vue.js - SvelteKit X React(Library) - Preact - AlpineJS - Svelte - jQuery(Library)
+Backend => NestJS - Django - Ruby on Rails - Laravel X Express.js - Fastify - Flask - FastAPI
+Full-stack => Next.js - Nuxt.js - Blitz.js X React + Vite - Express.js + EJS(Template Engine)
+CSS => Bootstrap X Tailwind
+
+A website is a collection of files delivered from a server to a web browser.
+Main technologies:
+  HTML => Structure of the page
+  CSS => Styling and layout
+  JavaScript => Behavior and logic
+
+A browser is a software application used to access websites.
+Examples:
+  Google Chrome
+  Firefox
+  Edge
+  Safari
+  Brave
+
+
+# 1st Era of Web => Static Websites
+
+Browser renders documents.
+  <h1>Hello</h1>
+
+    Browser
+    ↓
+    Parse HTML
+    ↓
+    Create DOM
+    ↓
+    Render page
+
+Problem:
+  No interaction
+  No dynamic data
+  No user state
+
+When a user enters a website address: https://sub.nodejs.org:443/en
+
+The following process happens.
+
+Step 1 — Browser Sends HTTP Request
+Browser asks server:
+  "Please send me the webpage files"
+
+Step 2 — Server Responds
+Server sends files:
+  HTML
+  CSS
+  JavaScript
+  Images
+  Fonts
+
+Old Days: Server-Side Rendering => SSR or Static-Site Generation => SSG
+Backend Was Designed to be responsible for sending pre-rendered/complete html to Client(Browser)
+MVC Architecture => Model - View - Controller (Route Handling)
+
+View Layer => 
+1. Template => html with gaps filled with variables (written in Backend Language)
+<p>Your username is ......... </p> => Filled with Data depend on user request
+
+Controller Layer => handle Routing and Connect to Database Using Model Layer and Prepare Data for View
+Template Engine => convert Template to Complete HTML (Server-Side Rendering SSR)
+<p>Your username is HassanELDash </p> => using data retrieved from Database
+
+
+Template Example:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Hello {{ name }}</h1>
+  <h1>Age {{ age }}</h1>
+  <h1>Address {{ address }}</h1>
+</body>
+</html>
+
+
+Backend based on request => Connect Database => Retrieve Data (based on request) => Asmaa, 20, Fayoum
+
+Pre-rendered HTML of the Same Example => The Complete HTML Ready to be sent to the Client(Browser)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Hello Asmaa</h1>
+  <h1>Age 20</h1>
+  <h1>Address Fayoum</h1>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+2. Complete HTML => Don't depend on request => (Static-Site Generation SSG)
+html => static
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Hello</h1>
+</body>
+</html>
+
+
+
+Step 3 — Browser Builds the Page
+The browser parses HTML and builds something called:
+  DOM (Document Object Model)
+
+The DOM is the browser's internal representation of an HTML document as a tree of objects.
+
+Example HTML:
+  <body>
+  <h1>Hello</h1>
+  <p>Welcome</p>
+  </body>
+
+The browser converts it to a DOM tree.
+  body
+  ├── h1
+  │    └── "Hello"
+  └── p
+        └── "Welcome"
+Each element becomes a node object.
+
+Also Introduced => Multiple-Page Application (MPA)
+Several HTML files + CSS + JS
+Each HTML has Anchor tags redirects to another HTML file
+
+
+
+# 2nd Era of Web => Dynamic Websites
+JavaScript introduced DOM manipulation.
+AJAX => Asynchronous JavaScript and XML => Jesse James Garret 2005
+HTMl (One Page) + JS (XMLHTTPRequest + DOM Manipulation) => Dynamic Page
+
+
+
+  document.getElementById("title").innerText = "Hello React";
+
+    User action
+    ↓
+    JavaScript modifies DOM
+    ↓
+    Browser re-render
+
+
+DOM Manipulation:
+Before React existed, developers used JavaScript to manually change the DOM.
+
+HTML:
+<h1 id="title">Hello</h1>
+<button onclick="changeTitle()">Click</button>
+
+JavaScript:
+  function changeTitle(){
+    document.getElementById("title").innerText = "Hello React"
+  }
+
+Execution Process
+User clicks button.
+  User Click
+  ↓
+  JavaScript runs
+  ↓
+  DOM element found
+  ↓
+  Text changed
+  ↓
+  Browser updates UI
+
+
+Problem With Manual DOM Manipulation:
+For small pages, this works.
+But modern applications contain hundreds of elements.
+Examples:
+  dashboards
+  social media apps
+  e-commerce sites
+
+This creates problems:
+Large applications require thousands of DOM operations.
+Example:
+  update button
+  update sidebar
+  update notification
+  update message list
+The code becomes very difficult to maintain.
+
+Problem 2 — Performance Issues
+DOM operations are expensive.
+each change may cause:
+  Layout recalculation
+  Repaint
+  Reflow
+These operations slow down the browser.
+
+Problem 3 — State Management
+Applications contain data that changes over time.
+Examples:
+  cart items
+  messages
+  notifications
+  logged in user
+Managing this state manually becomes very difficult.
+
+Problems:
+  Complex UI logic
+  Manual DOM updates
+  DOM updates expensive
+  State becomes hard to manage
+  Hard to maintain
+  Spaghetti Code
+  Performance issues
+
+
+
+# 3rd Era of Web - Front-End Framework:
+Examples:
+  Angular
+  Vue
+  React
+These frameworks introduced component-based architecture.
+UI = collection/tree of reusable components
+Client-Side Rendering (CSR)
+
+RESTful APIs
+Send JSON, Receive JSON
+
+Single-Page Application => SPA
+Components => Unit part of UI/Page
+
+SPA (Single Page Application):
+empty/blank html + main.js => create page => interactivity => fetch API + DOM API => Data (JSON) => DOM API to Complete HTML/Change UI
+
+
+
+Google => Angular => Framework
+Facebook (Meta) => React => 2013 => Library
+Vue.js
+SolidJS
+Svelte
+
+React by Facebook (Meta) 2013: is a JavaScript library for building user interfaces using reusable components and virtual DOM rendering. 
+
+React philosophy:
+  UI = function of data
+
+Meaning:
+  When data changes:
+    UI automatically updates
+  Instead of manually modifying DOM.
+
+Core Concepts:
+1. Component: Reusable UI building block/unit
+
+Example:
+  Button
+  Navbar
+  Sidebar
+  Card
+
+Each component contains:
+  UI Structure => HTML
+  Style => CSS
+  Logic => JavaScript
+  State => Memory
+
+
+Example conceptual component:
+  Product Card
+    ├── Product Image
+    ├── Product Name
+    ├── Price
+    └── Buy Button
+
+Instead of writing the code repeatedly, we create one reusable component.
+
+
+2. Virtual DOM + Reconciliation:
+DOM = Document Object Model
+Traditional DOM update:
+  DOM change → Browser re-render entire UI
+  HTML
+  ↓
+  DOM Tree
+  Updating DOM is expensive.
+
+
+React:
+  Virtual DOM = JavaScript representation of the realDOM in memory.
+  Virtual DOM → diff → minimal update
+
+The DOM (Document Object Model) is slow to manipulate directly.
+React uses a Virtual DOM, which is:
+	A lightweight, in-memory copy of the real DOM.
+	Represented as a JavaScript object tree.
+When the state changes:
+	React creates a new Virtual DOM tree.
+	It compares (diffs) the new tree with the previous one.
+	It updates only the changed elements in the real DOM (this process is called Reconciliation).
+
+React uses a powerful engine called the Fiber Architecture to manage this efficiently — it breaks updates into small units for better performance and smoother rendering.
+
+Execution pipeline:
+  User action
+  ↓
+  State changes
+  ↓
+  Virtual DOM Update
+  ↓
+  Diff Algorithm (Reconciliation) => React compares old vs new
+  ↓
+  Minimal Real DOM update (Only necessary changes)
+  ↓
+  UI Change
+
+Algorithm name:
+  Reconciliation
+
+Stack Reconciler => O(n^3)
+React Fiber Reconciler => O(n)
+
+
+Example Concept:
+Real DOM:
+  <ul>
+    <li>Apple</li>
+    <li>Orange</li>
+  </ul>
+
+User adds item.
+
+New UI:
+  <ul>
+    <li>Apple</li>
+    <li>Orange</li>
+    <li>Mango</li>
+  </ul>
+
+React compares both versions and updates only the new element.
+Instead of rebuilding the entire list.
+
+Advantages:
+  Faster rendering
+  Efficient updates
+  Explain Reconciliation algorithm.
+  Predictable UI behavior
+
+3. Single Page Application (SPA) => Without Reload
+Traditional websites load a new page each time:
+  Click link
+  ↓
+  Server request
+  ↓
+  Full page reload
+
+React SPA:
+  Click link
+  ↓
+  JavaScript updates component
+  ↓
+  Partial UI update
+
+The page loads once, and JavaScript updates the UI.
+
+Advantages:
+  Faster UX
+  Less network overhead
+  Smooth navigation
+  No full reload.
+
+
+Environment Setup
+  | Tool           | Purpose           |
+  | -------------- | ----------------- |
+  | Node.js        | JavaScript Runtime|
+  | npm            | Package manager   |
+  | Vite           | Modern Build tool |
+  | ESModules      | JS module system  |
+  | Babel          | JS compiler       |
+  | React DevTools | debugging         |
+
+Runtime environment: Software that allows a programming language to execute programs.
+
+JavaScript runs in browsers
+
+But developers needed JavaScript to run outside the browser, especially for:
+  servers
+  development tools
+  build systems
+  automation scripts
+
+Node.js allows JavaScript to run on:
+  your computer
+  servers
+  command line tools
+
+
+React development requires Node.js because it provides tools such as:
+  npm (package manager)
+  bundlers
+  development servers
+  build systems
+
+These tools help with:
+  installing libraries
+  running projects
+  building production code
+
+Without Node.js, React development is not possible.
+
+
+npm (Node Package Manager) is a tool used to install and manage JavaScript libraries and packages.
+
+Example libraries:
+  React
+  React Router
+  Axios
+  Lodash
+
+These libraries are stored in a public repository called: npm registry
+Website: https://npmjs.com
+
+Developers install packages using commands.
+
+Example:
+  npm install react
+
+
+---------
+A package is a reusable piece of software distributed through npm.
+Examples:
+  React
+  Express
+  Axios
+  React Router
+
+Each package contains:
+  JavaScript code
+  configuration files
+  documentation
+  dependencies
+
+A dependency is a package your project needs to work.
+
+Example:
+If your project uses React:
+  React becomes a dependency
+
+Dependencies are stored inside a configuration file called:
+
+package.json is the main configuration file of a Node project.
+
+It contains information about:
+  project name
+  project version
+  dependencies
+  scripts
+  metadata
+
+And downloads all required dependencies into a folder called:
+  node_modules
+
+Example simplified file:
+  {
+    "name": "react-app",
+    "version": "1.0.0",
+    "dependencies": {
+      "react": "^18.0.0"
+    }
+  }
+
+Important sections:
+  | Field        | Purpose                 |
+  | ------------ | ----------------------- |
+  | name         | project name            |
+  | version      | project version         |
+  | dependencies | required libraries      |
+  | scripts      | commands to run project |
+
+What is a Build Tool?
+React code cannot run directly in browsers because it uses:
+  JSX
+  modern JavaScript
+  modules
+
+Browsers do not understand these features directly.
+Therefore we use a build tool.
+
+Definition:
+A build tool converts developer code into browser-compatible code.
+
+Example tasks performed by build tools:
+  compile JSX
+  bundle files
+  optimize code
+  start development server
+
+
+Vite "veet" is a modern frontend build tool.
+It was created to solve performance problems in older tools.
+
+
+Vite improvements:
+  faster startup
+  faster builds
+  modern module system
+  better developer experience
+
+
+Project Creation (Modern)
+
+Installing Node.js
+  https://nodejs.org
+  Download the LTS (Long Term Support) version.
+  Stable version recommended for production use.
+
+Verify Installation
+  node -v
+  bpm --version
+
+
+Creating a React Project:
+1. create-react-app is deprecated.
+
+
+2. Parcel combines a great out-of-the-box development experience with a scalable architecture that can take your project from just getting started to massive production applications.
+
+npm install --save-dev parcel
+
+
+3. Rsbuild is an Rspack-powered build tool that provides a seamless development experience for React applications. It comes with carefully tuned defaults and performance optimizations ready to use.
+
+npx create-rsbuild --template react
+
+
+4. Vite is a build tool that aims to provide a faster and leaner development experience for modern web projects.
+
+
+Vite:
+1. Convert JSX, Modern JS => Browser-Compatible JS
+2. Multiple JS => Bundling into one file
+3. Optimize Code
+4. Local Development 
+
+
+Standard (JS/TS) => Babel (@vitejs/plugin-react) => Extremely stable, massive ecosystem compatibility, supports custom Babel plugins.	Slower compilation times compared to SWC, especially on larger projects.
+
++ SWC (Currently Selected) => SWC (@vitejs/plugin-react-swc) => Blazing fast. SWC is written in Rust and dramatically speeds up Hot Module Replacement (HMR) and cold starts.	Doesn't support custom Babel plugins. Highly recommended for most standard modern React apps.
+
++ React Compiler => React Compile => Automatically handles memoization (no more useMemo or useCallback). Optimizes rendering automatically.	Newer technology (introduced with React 19). Best if you want to test out React's auto-optimization features
+
+RSC (React Server Components): A setup designed to utilize React's Server Components architecture. This allows you to render components on the server without sending their JavaScript to the client, reducing bundle sizes and improving performance.
+
+React Router v7: Generates a project pre-configured with React Router v7. Since React Router absorbed Remix, this is essentially a full-stack framework option capable of data loaders, actions, and SSR/SSG.
+
+TanStack Router: Sets up a project with TanStack Router. This is the go-to choice if you want 100% type-safe routing, which pairs incredibly well with TypeScript.
+
+RedwoodSDK: Scaffolds a project using the RedwoodJS framework ecosystem, which is highly opinionated and gives you a full-stack setup (often pairing React with GraphQL and Prisma).
+
+Vike: (Formerly vite-plugin-ssr) A highly flexible "do-it-yourself" SSR framework. It gives you the power of SSR/SSG like Next.js, but lets you choose your own routing and data fetching tools.
+
+
+# How to use Vite v8:
+
+1. Terminal: npm create vite@latest
+
+> lecture-1@0.0.0 npx
+> create-vite
+
+│
+◇  Project name:
+│  vite-project
+│
+◇  Select a framework:
+│  React
+│
+◇  Select a variant:
+│  JavaScript + React Compiler
+│
+◇  Install with npm and start now?
+│  ● Yes / ○ No
+│
+◇  Scaffolding project in C:\Users\erase\OneDrive\Desktop\mny-mearn46r2-react\lecture-one...
+│
+◆  Installing dependencies with npm...
+
+
+Project folder architecture
+Example structure:
+  src
+    ├── components
+    ├── pages
+    ├── hooks
+    ├── services
+    ├── context
+    ├── assets
+    ├── App.jsx
+    └── main.jsx
+
+| Folder     | Purpose      |
+| ---------- | ------------ |
+| components | reusable UI  |
+| pages      | route pages  |
+| hooks      | custom hooks |
+| services   | API calls    |
+| context    | global state |
+| assets     | images / css |
+
+
+React Rendering Process
+  Browser
+  ↓
+  main.jsx
+  ↓
+  ReactDOM.createRoot()
+  ↓
+  <App />
+  ↓
+  Components Tree
+  ↓
+  Virtual DOM
+  ↓
+  Diff Algorithm
+  ↓
+  Real DOM
+
+The script is defined inside package.json.
+Example:
+  "scripts": {
+  "dev": "vite"
+  }
+Local: http://localhost:5173
+You will see the default React application.
+
+
+node_modules
+  Contains installed dependencies.
+  Important rule:
+    Never manually modify this folder
+
+public
+Contains static assets.
+Examples:
+  images
+  icons
+  fonts
+
+src
+Contains application source code.
+This is where we write React code.
+
+
+Entry Point of React Application
+  src/main.jsx
+
+Example code:
+  import React from 'react'
+  import ReactDOM from 'react-dom/client'
+  import App from './App.jsx'
+
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    <App />
+  )
+
+This is the entry point of the React application.
+
+Execution flow:
+  Browser
+  ↓
+  main.jsx
+  ↓
+  ReactDOM.createRoot()
+  ↓
+  <App />
+  ↓
+  UI renders
+
+
+The Root HTML File
+  index.html
+
+Important line:
+  <div id="root"></div>
+
+This element is called the root container.
+React will render the entire application inside this element.
+
+React Rendering Pipeline
+Complete process:
+  Browser loads index.html
+  ↓
+  main.jsx executes
+  ↓
+  React creates root
+  ↓
+  <App /> component renders
+  ↓
+  Virtual DOM created
+  ↓
+  Real DOM updated
+
+First React Component:
+JSX = syntax extension allowing HTML inside JavaScript.
+
+const element = <h1>Hello</h1>
+
+Example:
+  function App() {
+    return (
+      <h1>Hello React</h1>
+    )
+  }
+  export default App
+
+JSX is later converted into JavaScript using Babel compiler.
+
+compilation:
+  JSX
+  ↓
+  Babel
+  ↓
+  React.createElement()
+
+Before React v16 relies on => Class based Components
+After React v16 relies on => Functional based Components
+
+JSX Rules:
+Rule 1 — Return only one Component (Single/One Parent Element)
+  ❌
+  <h1>Hello</h1>
+  <p>Text</p>
+
+  ✅
+  <div>
+    <h1>Hello</h1>
+    <p>Text</p>
+  </div>
+
+Recommended: Use <React.Fragment> </React.Fragment> => <> </>
+
+Rule 2 — Convert any Similar keywords from HTML to camelCase Style
+  HTML ❌  => JSX ✅
+  tabindex  => tabIndex
+  onclick   => onClick
+  onchange  => onChange
+  maxlength => maxLength
+  readonly  => readOnly
+
+Rule 3 — Use className instead of class, htmlFor instead of for
+
+Rule 4 — Use JavaScript Expressions => Any JavaScript syntax inside HTML part after return written inside {}
+  {2 + 2}
+
+Rule 5 — Self-Closing Tags
+<img> => <img/>
+
+
+Rule 6 — Inline Styles
+  HTML: ❌
+  <div style="background-color: blue; font-size: 16px;"></div>
+
+  JSX: ✅
+  <div style={{ backgroundColor: 'blue', fontSize: '16px' }}></div>
+
+Rule 7 — {/* This is a comment */}
+
+Rule 8 — Boolean Attributes
+HTML: <input type="checkbox" checked>
+JSX: <input type="checkbox" checked /> (or checked={true})
+
+Use This Extension to create components using shortcuts:
+Extension Name: ES7+ React/Redux/React-Native snippets
+Author: dsznajder
+Documentation: https://github.com/r5n-labs/vscode-react-javascript-snippets/blob/HEAD/docs/Snippets.md
+
+To Use React BootStrap:
+1. Terminal: npm install react-bootstrap bootstrap
+2. inside index.html:
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+    crossorigin="anonymous" />
+
+
+Class Component => React Create Object from Class converted to what after the return in the render function and can be used as Custom HTML Tag => <ClassName />
+
+============================== Lecture No.2 ==============================
+UI Libraries
+
+React BootStrap
+npm install react-bootstrap bootstrap
+
+to uninstall
+npm uninstall react-bootstrap bootstrap
+
+
+Material Design 3 => Design System for Google
+https://m3.material.io/
+        ||
+        \/
+MUI => Material UI
+https://mui.com/
+        ||
+        \/
+https://mui.com/material-ui/getting-started/
+
+
+Ant Design of React
+npm install antd --save
+
+
+Tailwindcss ✅
+https://tailwindcss.com/
+
+
+Tailwindcss V3.0+ UI Components
+https://tailwindui.com/?ref=top
+
+
+Tailwindcss V4.0+ UI Components
+https://tailwindcss.com/plus/ui-blocks/documentation
+
+
+# Tailwindcss Cheat Sheet:
+https://nerdcave.com/tailwind-cheat-sheet
+
+
+Shadcn ✅✅✅✅✅✅✅✅✅✅
+https://ui.shadcn.com/
+
+# Using Vite v8 (JavaScript + React Compiler), React v19.2, Tailwindcss v4.2, and Shadcn UI 
+https://ui.shadcn.com/docs/installation/vite#existing-vite-project
+
+
+# How to Use Vite v8 (JavaScript + React Compiler), React v19.2, Tailwindcss v4.2, and Shadcn UI:
+
+1. Terminal: npm create vite@latest
+
+2. Terminal: npm install tailwindcss @tailwindcss/vite
+
+3. Replace everything in src/index.css with the following:
+@import "tailwindcss";
+
+4. Create jsconfig.json inside root (not in ./src)
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+
+
+5. Update vite.config.js
+
+import { defineConfig } from 'vite';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
+import babel from '@rolldown/plugin-babel';
+import tailwindcss from '@tailwindcss/vite';
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), babel({ presets: [reactCompilerPreset()] }), tailwindcss()],
+  resolve: {
+    alias: {
+      '@': new URL('./src', import.meta.url).pathname,
+    },
+  },
+});
+
+
+6. Terminal: npx shadcn@latest init
+
+Need to install the following packages:
+shadcn@4.2.0
+Ok to proceed? (y)
+√ Select a component library » Radix
+√ Which preset would you like to use? » Mira
+✔ Preflight checks.
+✔ Verifying framework. Found Vite.
+✔ Validating Tailwind CSS. Found v4.
+✔ Validating import alias.
+✔ Writing components.json.
+✔ Checking registry.
+✔ Installing dependencies.
+⠼ Updating files.[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+✔ Created 2 files:
+  - src\components\ui\button.jsx
+  - src\lib\utils.js
+✔ Updating src\index.css
+
+Project initialization completed.
+You may now add components.
+
+
+7. Add all Shadcn Components (Optional) => Terminal: npx shadcn@latest add --all
+
+
+Event Handling difference:
+HTML
+  onclick=""
+React:
+  onClick={}
+
+
+Example:
+  <button onClick={handleClick}>
+    Click
+  </button>
+
+
+React Hooks: functions that lets components use React Features Methods/Properties
+The Rules to use React Hooks:
+1. At Top Level (Before Return)
+2. Call Hooks inside HTML Part use React Functions
+
+Example:
+  useState
+  useEffect
+
+state: built-in objects => component contain it's data (component internal memory)
+
+Example:
+  Counter value
+  User input
+  API data
+  Form data
+
+# useState(initialValue) => array destructuring
+const [stateVariable, setStateVariable] = useState(initialValue);
+
+Live Code Example:
+  import { useState } from "react"
+
+  const [count, setCount] = useState(0)
+
+Updating State:
+  1. setCount(count + 1)
+  2. setCount(prev => prev + 1)
+
+
+
+State Update Queue => re-render process
+  setState does NOT immediately change variable
+Instead:
+Queues update
+Triggers re-render
+
+Conditional Rendering Techniques:
+  if, else
+  ?: => use for two cases one for true, another for false
+  && => use to show something only when a condition is true
+
+Example:
+  {isLoggedIn ? <Dashboard/> : <Login/>}
+
+Lists Rendering React uses:
+  Array.map()
+Example:
+  students.map(student => (
+    <StudentCard name={student}/>
+  ))
+
+Keys
+  Key = unique identifier.
+Example:
+  <StudentCard key={student.id}/>
+Reason:
+  Helps React reconciliation algorithm
+
+
+React architecture principle:
+  Unidirectional Data Flow
+  Parent → Child
+
+Example:
+  <App>
+    <StudentCard />
+  </App>
+
+Data passes via:
+  Props = (Properties) read-only inputs passed to components (parent => child)
+
+Props Example:
+  function Student(props){
+    return <h2>{props.name}</h2>
+  }
+
+Usage:
+  <Student name="Ali" />
+  <Student name="Sara" />
+
+Props cannot be modified by child components
+Reason:
+  Predictable data flow
+  Stable rendering
+
+============================== Lecture No.3 ==============================
+
+SPA Navigation Concept
+  React Router intercepts URL changes.
+Instead of:
+  Server request
+  Backend => Connect Database + APIs
+  Frontend => consume Backend's APIs
+React does:
+  Component swap
+
+
+Disclaimer: We will use Shadcn's Blocks as Prebuilt Components ✅
+
+React is a library so it depend on another library to do Routing and Navigation: React Router v7 ✅
+
+
+Route => Rule describe (Configuration)
+Path => Component
+
+
+https://sub.nodejs.org:443/en
+
+1st, 2nd Era => MPA
+
+// SSR => Backend Control URLs
+real path => resource (html file)
+imaginary path => /search
+
+// Send Data From Frontend to Backend => 2 Positions
+// 1. Inside Body
+fetchAPI/XMLHttpRequest => body
+forms method="POST"
+
+// 2. Inside URL
+
+// 2.1 As Path Parameters ✅
+// Example: https://api.escuelajs.co/api/v1/users/:id
+
+// 2.2 As Query Parameters ✅
+// Example: https://www.google.com/search?q=baby+shark&source=hp
+
+// forms method="GET" => Query Parameters
+
+
+3rd Era => SPA
+// CSR => Frontend Control URL
+
+React Router intercepts URL changes.
+
+
+# How to use React Router v7 in Data Mode:
+
+1. install React Router from npm => Terminal: npm i react-router
+
+2. Inside main.jsx update:
+import { createBrowserRouter } from "react-router";
+
+const router = createBrowserRouter([
+	{
+		path: '/login',
+		element: <LoginFormPage />,
+	},
+	{
+		path: '/signup',
+		element: <SignupFormPage />,
+	},
+	{
+		path: '/dashboard',
+		element: <DashboardPage />,
+	},
+]);
+
+
+createRoot(document.getElementById('root')).render(
+		<StrictMode>
+			<RouterProvider router={router} />
+		</StrictMode>
+);
+
+# How to use React Router v7 in Declarative Mode:
+
+Router Setup
+  <BrowserRouter>
+  <Routes>
+  <Route path="/" element={<Home/>}/>
+  </Routes>
+  </BrowserRouter>
+
+
+
+
+
+
+XMLHTTPRequest
+
+Fetch API => ES6 (2015)
+  let data;
+  fetch('https://api.escuelajs.co/api/v1/users/2')
+    .then((response)=>{
+      console.log(response)
+
+      if (!response.ok){
+        throw new Error ("HTTP Error Status:", response.status)
+      }
+
+      return response.json()
+    }).then((data)=>{
+      console.log(data)
+      data = data;
+      const div = document.createElement('div')
+
+    })
+
+
+Axios
+Terminal: npm i axios
+
+
+useEffect() => Hook allow to perform side effects (outside scope of rendering)
+
+
+
+
+
+
+
+
+
+Context API => built-in
+  1. createContext
+  2. create Provider
+  3. Wrap entire Application with the provider
+  4. Consume State with special Hook
+
+|||
+
+Zustand (State) => Terminal: npm i zustand
+  1. create Store
+  2. Define States => initial value
+  3. Define Actions (Functions Describe how to modify State) => use Built-in Function `set`
+  4. Consume Store with special Hook
+
+|||||||||
+
+
+Redux Toolkit (RTK) => Immer => Terminal: npm install @reduxjs/toolkit react-redux
+||
+1. Create a Redux Store
+
+import { configureStore } from '@reduxjs/toolkit';
+
+export const store = configureStore({
+  reducer: {},
+});
+
+2. Provide the Redux Store to React
+  <StrictMode>
+    <Provider store={store}>
+      <ThemeProvider>
+        <TooltipProvider>
+          <RouterProvider router={router} />
+        </TooltipProvider>
+      </ThemeProvider>
+    </Provider>
+  </StrictMode>,
+
+3. Create a Redux State Slice (Logical Grouping)
+4. Add Slice Reducers to the Store
+5. Use Redux State and Actions in React Components
